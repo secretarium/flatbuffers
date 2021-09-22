@@ -16,6 +16,19 @@
 
 // independent from idl_parser, since this code is not needed for most clients
 
+
+#ifdef _IN_ENCLAVE
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+	__int64 __cdecl _strtoi64(const char * nptr, char ** endptr, int base);
+	unsigned __int64 __cdecl _strtoui64(const char *strSource, char **endptr, int base);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
 #include "flatbuffers/flatbuffers.h"
 #include "flatbuffers/flexbuffers.h"
 #include "flatbuffers/idl.h"
@@ -380,6 +393,7 @@ static std::string TextFileName(const std::string &path,
   return path + file_name + ".json";
 }
 
+#ifndef _IN_ENCLAVE
 bool GenerateTextFile(const Parser &parser, const std::string &path,
                       const std::string &file_name) {
   if (parser.opts.use_flexbuffers) {
@@ -410,5 +424,6 @@ std::string TextMakeRule(const Parser &parser, const std::string &path,
   }
   return make_rule;
 }
+#endif
 
 }  // namespace flatbuffers

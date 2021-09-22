@@ -20,6 +20,18 @@
 #include <string>
 #include <utility>
 
+#ifdef _IN_ENCLAVE
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+	__int64 __cdecl _strtoi64(const char * nptr, char ** endptr, int base);
+	unsigned __int64 __cdecl _strtoui64(const char *strSource, char **endptr, int base);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
 #include "flatbuffers/idl.h"
 #include "flatbuffers/util.h"
 
@@ -118,7 +130,9 @@ void DeserializeDoc(std::vector<std::string> &doc,
 
 void Parser::Message(const std::string &msg) {
   if (!error_.empty()) error_ += "\n";  // log all warnings and errors
+  #ifndef _IN_ENCLAVE
   error_ += file_being_parsed_.length() ? AbsolutePath(file_being_parsed_) : "";
+  #endif
   // clang-format off
 
   #ifdef _WIN32  // MSVC alike
@@ -2944,7 +2958,9 @@ CheckedError Parser::DoParse(const char *source, const char **include_paths,
       vector_emplace_back(&native_included_files_, attribute_);
       EXPECT(kTokenStringConstant);
       EXPECT(';');
-    } else if (IsIdent("include") || (opts.proto_mode && IsIdent("import"))) {
+    } 
+#ifndef _IN_ENCLAVE
+    else if (IsIdent("include") || (opts.proto_mode && IsIdent("import"))) {
       NEXT();
       if (opts.proto_mode && attribute_ == "public") NEXT();
       auto name = flatbuffers::PosixPath(attribute_.c_str());
@@ -2986,7 +3002,9 @@ CheckedError Parser::DoParse(const char *source, const char **include_paths,
                        include_filename);
       }
       EXPECT(';');
-    } else {
+    }
+#endif
+    else {
       break;
     }
   }

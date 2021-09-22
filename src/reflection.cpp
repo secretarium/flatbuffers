@@ -14,6 +14,19 @@
  * limitations under the License.
  */
 
+
+#ifdef _IN_ENCLAVE
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+	__int64 __cdecl _strtoi64(const char * nptr, char ** endptr, int base);
+	unsigned __int64 __cdecl _strtoui64(const char *strSource, char **endptr, int base);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
 #include "flatbuffers/reflection.h"
 
 #include "flatbuffers/util.h"
