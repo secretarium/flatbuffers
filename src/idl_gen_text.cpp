@@ -17,7 +17,7 @@
 // independent from idl_parser, since this code is not needed for most clients
 
 
-#if defined(_IN_ENCLAVE) && defined(_MSC_VER)
+#if defined(_MSC_VER) && defined(_IN_ENCLAVE)
 #ifdef __cplusplus
 extern "C"
 {
