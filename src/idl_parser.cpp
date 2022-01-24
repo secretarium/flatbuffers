@@ -21,6 +21,7 @@
 #include <utility>
 
 #ifdef _IN_ENCLAVE
+#include <stdint.h>
 #ifdef __cplusplus
 extern "C"
 {
