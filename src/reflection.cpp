@@ -15,8 +15,8 @@
  */
 
 
-#ifdef _IN_ENCLAVE
-#include <stdint.h>
+#if defined(_IN_ENCLAVE) && defined(_MSC_VER)
+
 #ifdef __cplusplus
 extern "C"
 {
