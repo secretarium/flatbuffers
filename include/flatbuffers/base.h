@@ -200,7 +200,7 @@ namespace flatbuffers {
   #if defined(__has_include)
     // Check for std::string_view (in c++17)
     #if __has_include(<string_view>) && (__cplusplus >= 201606 || (defined(_HAS_CXX17) && _HAS_CXX17))
-      #include <secretarium/libcpp/string_view>
+      #include <secretarium/libcxx_enclave/c++/v1/string_view>
       namespace flatbuffers {
         typedef std::string_view string_view;
       }
