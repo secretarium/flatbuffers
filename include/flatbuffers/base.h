@@ -194,6 +194,7 @@ namespace flatbuffers {
   #define FLATBUFFERS_DELETE_FUNC(func) private: func;
 #endif
 
+#ifndef _IN_ENCLAVE
 #ifndef FLATBUFFERS_HAS_STRING_VIEW
   // Only provide flatbuffers::string_view if __has_include can be used
   // to detect a header that provides an implementation
@@ -222,6 +223,7 @@ namespace flatbuffers {
     #endif
   #endif // __has_include
 #endif // !FLATBUFFERS_HAS_STRING_VIEW
+#endif //_IN_ENCLAVE
 
 #ifndef FLATBUFFERS_HAS_NEW_STRTOD
   // Modern (C++11) strtod and strtof functions are available for use.
