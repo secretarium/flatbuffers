@@ -15,7 +15,7 @@
  */
 
 
-#if defined(_MSC_VER) && defined(_IN_ENCLAVE)
+#if defined(WIN32) && defined(_IN_ENCLAVE)
 
 #ifdef __cplusplus
 extern "C"
