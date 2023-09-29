@@ -388,12 +388,12 @@ bool GenerateText(const Parser &parser, const void *flatbuffer,
   return GenerateTextImpl(parser, root, *parser.root_struct_def_, _text);
 }
 
+#ifndef _IN_ENCLAVE
 static std::string TextFileName(const std::string &path,
                                 const std::string &file_name) {
   return path + file_name + ".json";
 }
 
-#ifndef _IN_ENCLAVE
 bool GenerateTextFile(const Parser &parser, const std::string &path,
                       const std::string &file_name) {
   if (parser.opts.use_flexbuffers) {
