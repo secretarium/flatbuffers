@@ -334,12 +334,12 @@ if(FLATBUFFERS_BUILD_FLATC)
   if(FLATBUFFERS_STATIC_FLATC AND NOT MSVC)
     target_link_libraries(flatc PRIVATE -static)
   endif()
-  post_build_strip_symbols(flatc)
+  post_build_symbol_works(flatc)
 endif()
 
 if(FLATBUFFERS_BUILD_FLATHASH)
   add_executable(flathash ${FlatHash_SRCS})
-  post_build_strip_symbols(flathash)
+  post_build_symbol_works(flathash)
 endif()
 
 if(FLATBUFFERS_BUILD_SHAREDLIB)
@@ -354,7 +354,7 @@ if(FLATBUFFERS_BUILD_SHAREDLIB)
   set_target_properties(flatbuffers_shared PROPERTIES OUTPUT_NAME flatbuffers
                         SOVERSION "${FlatBuffers_Library_SONAME_MAJOR}"
                         VERSION "${FlatBuffers_Library_SONAME_FULL}")
-  post_build_strip_symbols(flatbuffers_shared)
+  post_build_symbol_works(flatbuffers_shared)
 endif()
 
 # Global list of generated files.
